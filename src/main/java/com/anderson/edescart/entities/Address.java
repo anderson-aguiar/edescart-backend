@@ -14,6 +14,8 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String street;
+
 	private String cep;
 	private Integer number;
 	private String city;
@@ -25,16 +27,16 @@ public class Address {
 	
 	public Address() {}
 	
-	public Address(Long id, String cep, Integer number, String city, String state, Company company) {
+	public Address(Long id, String street, String cep, Integer number, String city, String state, Company company) {
 		super();
 		this.id = id;
+		this.street = street;
 		this.cep = cep;
 		this.number = number;
 		this.city = city;
 		this.state = state;
 		this.company = company;
 	}
-
 
 
 	public Long getId() {
@@ -75,6 +77,14 @@ public class Address {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+	
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
 	public Company getCompany() {
