@@ -1,6 +1,10 @@
 package com.anderson.edescart.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +23,11 @@ public class CompanyService {
 		Company company = repository.findById(id).get();
 		CompanyDTO dto = new CompanyDTO(company);
 		return dto;
+	}
+	@Transactional(readOnly = true)
+	public Page<CompanyDTO> findAll(Pageable pageable) {
+		Page<Company> result = repository.findAll(pageable);
+		return result.map(x -> new CompanyDTO(x));
 	}
 
 }
