@@ -88,5 +88,9 @@ public class CompanyService {
 
 		return new CompanyDTO(entity);
 	}
+	@Transactional
+	public void delete(Long id) {
+		companyRepository.deleteById(id);
+	}
 
 }
