@@ -1,5 +1,7 @@
 package com.anderson.edescart.entities;
 
+import com.anderson.edescart.dto.AddressDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,13 +22,15 @@ public class Address {
 	private Integer number;
 	private String city;
 	private String state;
-	
+
+	// @JoinColumn(name = "company_id")
 	@OneToOne
 	@MapsId
 	private Company company;
-	
-	public Address() {}
-	
+
+	public Address() {
+	}
+
 	public Address(Long id, String street, String cep, Integer number, String city, String state, Company company) {
 		super();
 		this.id = id;
@@ -38,6 +42,14 @@ public class Address {
 		this.company = company;
 	}
 
+	public Address(AddressDTO entity) {
+		this.id = entity.getId();
+		this.street = entity.getStreet();
+		this.cep = entity.getCep();
+		this.number = entity.getNumber();
+		this.city = entity.getCity();
+		this.state = entity.getState();
+	}
 
 	public Long getId() {
 		return id;
@@ -78,7 +90,7 @@ public class Address {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
+
 	public String getStreet() {
 		return street;
 	}
@@ -94,7 +106,5 @@ public class Address {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-		
-	
-	
+
 }

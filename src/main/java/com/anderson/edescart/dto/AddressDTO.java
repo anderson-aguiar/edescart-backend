@@ -24,12 +24,12 @@ public class AddressDTO {
 	}
 
 	public AddressDTO(Address entity) {
-		this.id = entity.getId();
-		this.street = entity.getStreet();
-		this.cep = entity.getCep();
-		this.number = entity.getNumber();
-		this.city = entity.getCity();
-		this.state = entity.getState();
+		id = entity.getId();
+		street = entity.getStreet();
+		cep = entity.getCep();
+		number = entity.getNumber();
+		city = entity.getCity();
+		state = entity.getState();
 	}
 
 	public Long getId() {

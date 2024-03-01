@@ -23,23 +23,22 @@ public class Company {
 	private Long id;
 	private String name;
 	private String phone;
-	
+
 	@OneToOne(mappedBy = "company", cascade = CascadeType.ALL)
-	private Address addrees; 
+	private Address address;
 
 	@ManyToMany
-	@JoinTable(name = "tb_company_material", joinColumns = @JoinColumn(name = "company_id"), 
-	inverseJoinColumns = @JoinColumn(name = "material_id"))
+	@JoinTable(name = "tb_company_material", joinColumns = @JoinColumn(name = "company_id"), inverseJoinColumns = @JoinColumn(name = "material_id"))
 	private Set<Material> materials = new HashSet<>();
 
 	public Company() {
 	}
+
 	public Company(Long id, String name, String phone, Address addrees) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.phone = phone;
-		this.addrees = addrees;
+		this.address = addrees;
 	}
 
 	public Long getId() {
@@ -67,13 +66,15 @@ public class Company {
 	}
 
 	public Address getAddrees() {
-		return addrees;
+		return address;
 	}
+
 	public void setAddrees(Address addrees) {
-		this.addrees = addrees;
+		this.address = addrees;
 	}
+
 	public Set<Material> getMaterials() {
 		return materials;
 	}
-	
+
 }
