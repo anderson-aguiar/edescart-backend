@@ -1,9 +1,11 @@
 package com.anderson.edescart.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.anderson.edescart.dto.AddressDTO;
@@ -14,6 +16,10 @@ import com.anderson.edescart.entities.Company;
 import com.anderson.edescart.entities.Material;
 import com.anderson.edescart.repositories.CompanyRepository;
 import com.anderson.edescart.repositories.MaterialRepository;
+import com.anderson.edescart.services.exceptions.DatabaseException;
+import com.anderson.edescart.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CompanyService {
@@ -25,7 +31,8 @@ public class CompanyService {
 
 	@Transactional(readOnly = true)
 	public CompanyDTO findById(Long id) {
-		Company company = companyRepository.findById(id).get();
+		Company company = companyRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado!"));
 		CompanyDTO dto = new CompanyDTO(company);
 		return dto;
 	}
@@ -63,34 +70,48 @@ public class CompanyService {
 
 		return new CompanyDTO(entity);
 	}
+
 	@Transactional
 	public CompanyDTO update(Long id, CompanyDTO dto) {
-		Company entity = companyRepository.getReferenceById(id);
+		try {
 
-		entity.setName(dto.getName());
-		entity.setPhone(dto.getPhone());
+			Company entity = companyRepository.getReferenceById(id);
 
-		AddressDTO addressDTO = dto.getAddress();
-		Address address = entity.getAddrees();
-		address.setStreet(addressDTO.getStreet());
-		address.setCep(addressDTO.getCep());
-		address.setNumber(addressDTO.getNumber());
-		address.setCity(addressDTO.getCity());
-		address.setState(addressDTO.getState());
-		
-		for (MaterialDTO matDto : dto.getMaterials()) {
-			Material mat = materialRepository.getReferenceById(matDto.getId());
-			// Material mat = new Material();
-			// mat.setId(matDto.getId());
-			entity.getMaterials().add(mat);
+			entity.setName(dto.getName());
+			entity.setPhone(dto.getPhone());
+
+			AddressDTO addressDTO = dto.getAddress();
+			Address address = entity.getAddrees();
+			address.setStreet(addressDTO.getStreet());
+			address.setCep(addressDTO.getCep());
+			address.setNumber(addressDTO.getNumber());
+			address.setCity(addressDTO.getCity());
+			address.setState(addressDTO.getState());
+
+			for (MaterialDTO matDto : dto.getMaterials()) {
+				Material mat = materialRepository.getReferenceById(matDto.getId());
+				// Material mat = new Material();
+				// mat.setId(matDto.getId());
+				entity.getMaterials().add(mat);
+			}
+			entity = companyRepository.save(entity);
+
+			return new CompanyDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Recurso não encontrado");
 		}
-		entity = companyRepository.save(entity);
-
-		return new CompanyDTO(entity);
 	}
-	@Transactional
+
+	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
-		companyRepository.deleteById(id);
+		if (!companyRepository.existsById(id)) {
+			throw new ResourceNotFoundException("Recurso não encontrado");
+		}
+		try {
+			companyRepository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Falha de integridade referencial");
+		}
 	}
 
 }
