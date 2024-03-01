@@ -1,5 +1,7 @@
 package com.anderson.edescart.entities;
 
+import java.util.Objects;
+
 import com.anderson.edescart.dto.AddressDTO;
 
 import jakarta.persistence.Entity;
@@ -105,6 +107,23 @@ public class Address {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Address other = (Address) obj;
+		return Objects.equals(id, other.id);
 	}
 
 }

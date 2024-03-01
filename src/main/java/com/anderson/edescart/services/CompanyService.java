@@ -63,5 +63,30 @@ public class CompanyService {
 
 		return new CompanyDTO(entity);
 	}
+	@Transactional
+	public CompanyDTO update(Long id, CompanyDTO dto) {
+		Company entity = companyRepository.getReferenceById(id);
+
+		entity.setName(dto.getName());
+		entity.setPhone(dto.getPhone());
+
+		AddressDTO addressDTO = dto.getAddress();
+		Address address = entity.getAddrees();
+		address.setStreet(addressDTO.getStreet());
+		address.setCep(addressDTO.getCep());
+		address.setNumber(addressDTO.getNumber());
+		address.setCity(addressDTO.getCity());
+		address.setState(addressDTO.getState());
+		
+		for (MaterialDTO matDto : dto.getMaterials()) {
+			Material mat = materialRepository.getReferenceById(matDto.getId());
+			// Material mat = new Material();
+			// mat.setId(matDto.getId());
+			entity.getMaterials().add(mat);
+		}
+		entity = companyRepository.save(entity);
+
+		return new CompanyDTO(entity);
+	}
 
 }
