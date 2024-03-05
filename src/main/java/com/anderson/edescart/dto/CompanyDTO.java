@@ -6,9 +6,14 @@ import java.util.List;
 import com.anderson.edescart.entities.Company;
 import com.anderson.edescart.entities.Material;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class CompanyDTO {
 
 	private Long id;
+	@NotBlank(message="Campo requerido.")	
+	@Size(min=3, max=80, message="Nome precisa ter de 3 a 80 caracteres.")
 	private String name;
 	private String phone;
 

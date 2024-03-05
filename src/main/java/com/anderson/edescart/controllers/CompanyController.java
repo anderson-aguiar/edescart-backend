@@ -19,6 +19,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.anderson.edescart.dto.CompanyDTO;
 import com.anderson.edescart.services.CompanyService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/companies")
 public class CompanyController {
@@ -37,14 +39,14 @@ public class CompanyController {
 		return ResponseEntity.ok(dto);
 	}
 	@PostMapping()
-	public  ResponseEntity<CompanyDTO> insert(@RequestBody CompanyDTO dto) {
+	public  ResponseEntity<CompanyDTO> insert(@Valid @RequestBody CompanyDTO dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(dto.getId()).toUri();
 		return  ResponseEntity.created(uri).body(dto);
 	}
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<CompanyDTO> update(@PathVariable Long id, @RequestBody CompanyDTO dto) {
+	public ResponseEntity<CompanyDTO> update(@PathVariable Long id, @Valid @RequestBody CompanyDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok(dto);
 	}
