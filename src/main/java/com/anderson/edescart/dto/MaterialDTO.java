@@ -2,9 +2,14 @@ package com.anderson.edescart.dto;
 
 import com.anderson.edescart.entities.Material;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class MaterialDTO {
 
 	private Long id;
+	@NotBlank(message="Campo requerido.")	
+	@Size(min=3, max=15, message="Nome precisa ter de 3 a 15 caracteres.")
 	private String name;
 
 	public MaterialDTO() {
