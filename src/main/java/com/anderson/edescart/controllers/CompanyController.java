@@ -1,6 +1,7 @@
 package com.anderson.edescart.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,7 +34,15 @@ public class CompanyController {
 	public ResponseEntity<CompanyDTO> findById(@PathVariable Long id) {
 		CompanyDTO dto = service.findById(id);
 		return ResponseEntity.ok(dto);
+		
 	}
+	
+	@GetMapping("/material")
+	public ResponseEntity<List<CompanyDTO>> findByMaterial(@RequestParam(name = "name", defaultValue = "") String name) {
+		List<CompanyDTO> list = service.findByMaterialName(name);
+		return ResponseEntity.ok(list);
+	}
+	
 	@GetMapping()
 	public ResponseEntity<Page<CompanyDTO>> findAll(Pageable pageable) {
 		Page<CompanyDTO> dto = service.findAll(pageable);
