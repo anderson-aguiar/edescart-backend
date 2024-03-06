@@ -1,5 +1,8 @@
 package com.anderson.edescart.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -112,6 +115,17 @@ public class CompanyService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Falha de integridade referencial");
 		}
+	}
+
+	@Transactional
+	public List<CompanyDTO> findByMaterialName(String name) {
+		List<CompanyDTO> companiesDto = new ArrayList<>();
+		List<Company> companies = companyRepository.findByMaterialsNameIgnoreCaseContaining(name);
+		for(Company entity : companies ) {
+			CompanyDTO dto = new CompanyDTO(entity);
+			companiesDto.add(dto);
+		}
+		return companiesDto;
 	}
 
 }
