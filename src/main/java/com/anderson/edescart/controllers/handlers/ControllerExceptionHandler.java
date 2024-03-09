@@ -13,6 +13,7 @@ import com.anderson.edescart.dto.CustomError;
 import com.anderson.edescart.dto.ValidationError;
 import com.anderson.edescart.services.exceptions.DatabaseException;
 import com.anderson.edescart.services.exceptions.ResourceNotFoundException;
+import com.anderson.edescart.services.exceptions.WebClientException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -40,6 +41,12 @@ public class ControllerExceptionHandler {
 		for(FieldError f: e.getBindingResult().getFieldErrors()) {
 			err.addError(f.getField(), f.getDefaultMessage());
 		}
+		return ResponseEntity.status(status).body(err);
+	}
+	@ExceptionHandler(WebClientException.class)
+	public ResponseEntity<CustomError> webclient(WebClientException e, HttpServletRequest request){
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 
