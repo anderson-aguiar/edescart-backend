@@ -48,7 +48,7 @@ public class CompanyService {
 
 	@Transactional(readOnly = true)
 	public Page<CompanyDTO> findAll(Pageable pageable) {
-		Page<Company> result = companyRepository.findAll(pageable);
+		Page<Company> result = companyRepository.searchAll(pageable);
 		return result.map(x -> new CompanyDTO(x));
 	}
 

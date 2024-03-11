@@ -26,8 +26,8 @@ public class Address {
 	private String state;
 
 	// @JoinColumn(name = "company_id")
-	@OneToOne
 	@MapsId
+	@OneToOne
 	private Company company;
 
 	public Address() {

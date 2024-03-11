@@ -22,8 +22,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.anderson.edescart.dto.CompanyDTO;
 import com.anderson.edescart.dto.CompanyMinDTO;
 import com.anderson.edescart.services.CompanyService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import jakarta.validation.Valid;
 
@@ -51,7 +49,7 @@ public class CompanyController {
 
 	@GetMapping("/distance")
 	public ResponseEntity<List<CompanyMinDTO>> findDistance(@RequestParam(name = "name", defaultValue = "") String name,
-			@RequestParam(name = "postalCode") String postalCode) throws JsonMappingException, JsonProcessingException {
+			@RequestParam(name = "postalCode") String postalCode){
 		List<CompanyMinDTO> minDto = new ArrayList<>();
 		minDto = service.findDistance(name, postalCode);
 		return ResponseEntity.ok(minDto);
