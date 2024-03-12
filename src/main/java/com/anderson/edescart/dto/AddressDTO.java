@@ -2,10 +2,13 @@ package com.anderson.edescart.dto;
 
 import com.anderson.edescart.entities.Address;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class AddressDTO {
 
 	private Long id;
 	private String street;
+	@NotBlank(message="Campo requerido.")
 	private String cep;
 	private Integer number;
 	private String city;

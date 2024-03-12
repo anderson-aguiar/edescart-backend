@@ -21,6 +21,9 @@ INSERT INTO tb_material(name) VALUES ('Roupas');
 INSERT INTO tb_material(name) VALUES ('Vidros');
 
 INSERT INTO tb_user(name, email, password) VALUES ('Anderson Martins', 'anderson.aguiar@outlook.com.br', '123456');
+INSERT INTO tb_role(authority) VALUES('ROLE_ADMIN');
+
+INSERT INTO tb_user_role(user_id, role_id) VALUES(1, 1);
 
 INSERT INTO tb_company(name, phone) VALUES ('TIM - Loja Campinas', '19984324567');
 INSERT INTO tb_company(name, phone) VALUES ('C&A - Centro Campinas', '1121620063');
