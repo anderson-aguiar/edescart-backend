@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,6 @@ import jakarta.validation.Valid;
 @RequestMapping(value = "/companies")
 public class CompanyController {
 
-
 	@Autowired
 	private CompanyService service;
 
@@ -49,7 +49,7 @@ public class CompanyController {
 
 	@GetMapping("/distance")
 	public ResponseEntity<List<CompanyMinDTO>> findDistance(@RequestParam(name = "name", defaultValue = "") String name,
-			@RequestParam(name = "postalCode") String postalCode){
+			@RequestParam(name = "postalCode") String postalCode) {
 		List<CompanyMinDTO> minDto = new ArrayList<>();
 		minDto = service.findDistance(name, postalCode);
 		return ResponseEntity.ok(minDto);
@@ -61,6 +61,7 @@ public class CompanyController {
 		return ResponseEntity.ok(dto);
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping()
 	public ResponseEntity<CompanyDTO> insert(@Valid @RequestBody CompanyDTO dto) {
 		dto = service.insert(dto);
@@ -68,12 +69,14 @@ public class CompanyController {
 		return ResponseEntity.created(uri).body(dto);
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<CompanyDTO> update(@PathVariable Long id, @Valid @RequestBody CompanyDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok(dto);
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
