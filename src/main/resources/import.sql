@@ -20,7 +20,7 @@ INSERT INTO tb_material(name) VALUES ('Pneus');
 INSERT INTO tb_material(name) VALUES ('Roupas');
 INSERT INTO tb_material(name) VALUES ('Vidros');
 
-INSERT INTO tb_user(name, email, password) VALUES ('Anderson Martins', 'anderson.aguiar@outlook.com.br', '123456');
+INSERT INTO tb_user(name, email, password) VALUES ('Anderson Martins', 'anderson@gmail.com', '$2a$10$spIwnDspZDu4gpbkOxDa4uncgDlapO28oJ/JsZULMoiun7sCL7Ozq');
 INSERT INTO tb_role(authority) VALUES('ROLE_ADMIN');
 
 INSERT INTO tb_user_role(user_id, role_id) VALUES(1, 1);

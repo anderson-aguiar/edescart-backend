@@ -1,0 +1,42 @@
+{"properties": [
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "jwt.duration",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.duration'"
+  },
+  {
+    "name": "cors.origins",
+    "type": "java.lang.String",
+    "description": "A description for 'cors.origins'"
+  },
+  {
+    "name": "security.client-id",
+    "type": "java.lang.String",
+    "description": "A description for 'security.client-id'"
+  },
+  {
+    "name": "security.jwt.duration",
+    "type": "java.lang.String",
+    "description": "A description for 'security.jwt.duration'"
+  },
+  {
+    "name": "bingmaps.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'bingmaps.api.key'"
+  },
+  {
+    "name": "bingmaps.api.url",
+    "type": "java.lang.String",
+    "description": "A description for 'bingmaps.api.url'"
+  },
+  {
+    "name": "security.client-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'security.client-secret'"
+  }
+]}
