@@ -37,7 +37,6 @@ public class CompanyController {
 	public ResponseEntity<CompanyDTO> findById(@PathVariable Long id) {
 		CompanyDTO dto = service.findById(id);
 		return ResponseEntity.ok(dto);
-
 	}
 
 	@GetMapping("/material")

@@ -75,6 +75,14 @@ public class User implements UserDetails {
 		return email;
 	}
 
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
