@@ -147,7 +147,7 @@ public class CompanyService {
 			entity.setId(x.getId());
 			entity.setAddress(x.getAddress());
 			entity.setName(x.getName());
-			entity.setPhone(x.getPhone() == null ? "Não informado" : x.getName());
+			entity.setPhone(x.getPhone() == null ? "Não informado" : x.getPhone());
 			String distance = calcDistance(coordCepOrigin, x.getAddress().getCep());
 			entity.setDistance(Double.parseDouble(distance));
 			minDto.add(entity);
