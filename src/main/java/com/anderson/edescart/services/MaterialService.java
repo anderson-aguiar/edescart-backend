@@ -1,5 +1,7 @@
 package com.anderson.edescart.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -31,9 +33,9 @@ public class MaterialService {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<MaterialDTO> findAll(Pageable pageable) {
-		Page<Material> result = materialRepository.findAll(pageable);
-		return result.map(x -> new MaterialDTO(x));
+	public List<MaterialDTO> findAll() {
+		List<Material> result = materialRepository.findAll();
+		return result.stream().map(x -> new MaterialDTO(x)).toList();
 	}
 
 	@Transactional
