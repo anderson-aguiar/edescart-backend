@@ -13,6 +13,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
 	
 	List<Company> findByMaterialsNameIgnoreCaseContaining(String materialName);
+	List<Company> findByMaterialsId(Long id);
 	
 	@Query(value = "SELECT obj FROM Company obj JOIN FETCH obj.materials JOIN FETCH obj.address",
 			countQuery = "SELECT COUNT(obj) FROM Company obj JOIN obj.address")

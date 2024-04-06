@@ -45,7 +45,7 @@ public class CompanyController {
 		List<CompanyDTO> list = service.findByMaterialName(name);
 		return ResponseEntity.ok(list);
 	}
-
+	
 	@GetMapping("/distance")
 	public ResponseEntity<List<CompanyMinDTO>> findDistance(@RequestParam(name = "name", defaultValue = "") String name,
 			@RequestParam(name = "postalCode") String postalCode) {

@@ -41,7 +41,7 @@ public class Company {
 		this.phone = phone;
 		this.address = addrees;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -76,6 +76,9 @@ public class Company {
 
 	public Set<Material> getMaterials() {
 		return materials;
+	}
+	public void removeMaterial(Long materialId) {
+	    materials.removeIf(material -> material.getId().equals(materialId));
 	}
 
 	@Override

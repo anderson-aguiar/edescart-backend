@@ -136,6 +136,16 @@ public class CompanyService {
 		}
 		return companiesDto;
 	}
+	@Transactional
+	public void removeMaterialFromCompanies(Long id) {
+		List<Company> companies = companyRepository.findByMaterialsId(id);
+		if(companies.isEmpty()) {
+			throw new ResourceNotFoundException("Recurso não encontrado");
+		}
+		for(Company entity : companies ) {
+			entity.removeMaterial(id);
+		}
+	}
 	@Transactional(readOnly = true)
 	public List<CompanyMinDTO> findDistance(String name, String postalCode){
 		List<CompanyDTO> list = findByMaterialName(name);
