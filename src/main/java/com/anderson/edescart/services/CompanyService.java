@@ -96,7 +96,8 @@ public class CompanyService {
 			address.setNumber(addressDTO.getNumber());
 			address.setCity(addressDTO.getCity());
 			address.setState(addressDTO.getState());
-
+			
+			entity.getMaterials().clear();
 			for (MaterialDTO matDto : dto.getMaterials()) {
 				Material mat = materialRepository.getReferenceById(matDto.getId());
 				// Material mat = new Material();
