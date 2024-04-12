@@ -139,13 +139,13 @@ public class CompanyService {
 	}
 	@Transactional
 	public void removeMaterialFromCompanies(Long id) {
-		List<Company> companies = companyRepository.findByMaterialsId(id);
-		if(companies.isEmpty()) {
-			throw new ResourceNotFoundException("Recurso não encontrado");
-		}
-		for(Company entity : companies ) {
-			entity.removeMaterial(id);
-		}
+	    List<Company> companies = companyRepository.findByMaterialsId(id);
+	    for (Company entity : companies) {
+	        entity.removeMaterial(id);
+	    }
+	    if (companies.isEmpty()) {
+	        return;
+	    }
 	}
 	@Transactional(readOnly = true)
 	public List<CompanyMinDTO> findDistance(String name, String postalCode){
