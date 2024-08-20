@@ -21,6 +21,8 @@ Foi desenvolvido uma API Rest com Java e Spring Boot framwork. Assuntos abordado
 - Variáveis de ambiente
 - Perfis de projeto
 
+## Modelo de dominio
+![](https://github.com/anderson-aguiar/edescart-backend/blob/main/img/Diagrama%20E-Descart.png)
 ---
 ##  Tecnologias Utilizadas
 Esse projeto foi criado utilizando as tecnologias:
